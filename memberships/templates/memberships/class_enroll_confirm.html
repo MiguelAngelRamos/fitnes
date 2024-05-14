@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Inscribirse en Clase</h1>
+<p>¿Estás seguro de que deseas inscribirte en la clase "{{ class_instance.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Inscribirse</button>
+    <a href="{% url 'class_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Gestión de Clases</h1>
+<a class="btn btn-primary" href="{% url 'class_create' %}">Crear Clase</a>
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Hora de Inicio</th>
+            <th>Hora de Fin</th>
+            <th>Instructor</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for class in classes %}
+        <tr>
+            <td>{{ class.name }}</td>
+            <td>{{ class.description }}</td>
+            <td>{{ class.start_time }}</td>
+            <td>{{ class.end_time }}</td>
+            <td>{{ class.instructor.get_full_name }}</td>
+            <td>
+                <a class="btn btn-secondary" href="{% url 'class_update' class.pk %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'class_delete' class.pk %}">Eliminar</a>
+                <a class="btn btn-success" href="{% url 'enroll_in_class' class.pk %}">Inscribirse</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

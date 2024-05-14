@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Seguimiento del Progreso</h1>
+<a class="btn btn-primary" href="{% url 'progress_create' %}">Registrar Progreso</a>
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>Actividad</th>
+            <th>Fecha</th>
+            <th>Detalle del Progreso</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for progress in progresses %}
+        <tr>
+            <td>{{ progress.activity }}</td>
+            <td>{{ progress.date }}</td>
+            <td>{{ progress.progress_detail }}</td>
+            <td>
+                <a class="btn btn-secondary" href="{% url 'progress_update' progress.pk %}">Editar</a>
+                <a class="btn btn-danger" href="{% url 'progress_delete' progress.pk %}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

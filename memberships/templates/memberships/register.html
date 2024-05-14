@@ -1,19 +1,25 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
+{% load widget_filters %}  {# Cargar el filtro personalizado #}
 {% block content %}
- <h1>Registro</h1>
+<h1>Registro</h1>
 <form method="post">
   {% csrf_token %}
   {% for field in form %}
   <div class="mb-3">
-    <label for="{{field.id_for_label}}" class="form-label">{{ field.label }}</label>
-    {{ field|add_class:"form-control"}}
+    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+    {% if field|is_select %}
+      {{ field|add_class:"form-select" }}
+    {% else %}
+      {{ field|add_class:"form-control" }}
+    {% endif %}
     {% for error in field.errors %}
-    <div class="mt-5 alert alert-danger">{{ error }} </div>
-{% endfor %}
+    <div class="mt-5 alert alert-danger">{{ error }}</div>
+    {% endfor %}
   </div>
-{% endfor %}
+  {% endfor %}
   <button class="btn btn-primary" type="submit">Registrarse</button>
-</form> 
+</form>
 {% endblock %}
+
 <!-- memberships>templates>memberships>register.html-->

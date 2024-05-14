@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'memberships',
-    'widget_tweaks'
+    'widget_tweaks',
 ]
 
 # Agrega 'django.middleware.locale.LocaleMiddleware' a tu lista de MIDDLEWARE si aún no está.
@@ -144,3 +144,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mramoscli@outlook.com'  # Tu dirección de correo electrónico de Outlook
 EMAIL_HOST_PASSWORD = 'control$123$'  # Tu contraseña de Outlook
 DEFAULT_FROM_EMAIL = 'mramoscli@outlook.com'
+

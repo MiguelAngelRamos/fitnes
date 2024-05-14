@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Eliminar Progreso</h1>
+<p>¿Estás seguro de que deseas eliminar el progreso en la actividad "{{ progress.activity }}" registrado el "{{ progress.date }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'progress_list' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

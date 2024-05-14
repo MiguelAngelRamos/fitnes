@@ -45,7 +45,9 @@ class CustomLoginView(LoginView):
     template_name = 'memberships/login.html'
     
     def get_success_url(self):
-        return reverse_lazy('profile')  # Asegúrate de que 'profile' es el nombre correcto para la URL de tu vista de perfil
+        return reverse_lazy('class_list')  # Redirigir a la lista de clases después de iniciar sesión
+    # def get_success_url(self):
+    #     return reverse_lazy('profile')  # Asegúrate de que 'profile' es el nombre correcto para la URL de tu vista de perfil
 
 @login_required
 def profile(request):

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="new-django">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/new-django.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

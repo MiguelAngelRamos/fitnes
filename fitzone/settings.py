@@ -141,7 +141,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-mail.outlook.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mramoscli@outlook.com'  # Tu dirección de correo electrónico de Outlook
-EMAIL_HOST_PASSWORD = 'control$123$'  # Tu contraseña de Outlook
-DEFAULT_FROM_EMAIL = 'mramoscli@outlook.com'
+EMAIL_HOST_USER = 'tucorreo@outlook.com'  # Tu dirección de correo electrónico de Outlook
+EMAIL_HOST_PASSWORD = 'tucontraseña'  # Tu contraseña de Outlook
+DEFAULT_FROM_EMAIL = 'tucorreo@outlook.com'
 

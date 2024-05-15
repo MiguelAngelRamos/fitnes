@@ -11,7 +11,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email', 'password1', 'password2', 'health_details', 'preferred_activities', 'address', 'membership_start_date')
+        fields = ('email', 'username', 'password1', 'password2', 'health_details', 'preferred_activities', 'address', 'membership_start_date')
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(label="Email", widget=forms.TextInput(attrs={'autofocus': True}))
@@ -34,3 +34,7 @@ class ProgressForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'type': 'date'}),
             'progress_detail': forms.Textarea(attrs={'rows': 4}),
         }
+class ClassForm(forms.ModelForm):
+    class Meta:
+        model = Class
+        fields = ['name', 'description', 'start_time', 'end_time', 'instructor']

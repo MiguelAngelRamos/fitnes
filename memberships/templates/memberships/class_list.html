@@ -20,7 +20,7 @@
             <td>{{ class.description }}</td>
             <td>{{ class.start_time }}</td>
             <td>{{ class.end_time }}</td>
-            <td>{{ class.instructor.get_full_name }}</td>
+            <td>{{ class.instructor.username }}</td>
             <td>
                 <a class="btn btn-secondary" href="{% url 'class_update' class.pk %}">Editar</a>
                 <a class="btn btn-danger" href="{% url 'class_delete' class.pk %}">Eliminar</a>

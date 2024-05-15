@@ -10,19 +10,27 @@ from django.utils.crypto import get_random_string
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Class, Progress
+from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, DeleteView
+from .models import Class
+from .forms import ClassForm
 
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            temp_password = get_random_string(8)
-            user.set_password(temp_password)
+            user.is_staff = False  # Asegurar que el nuevo usuario es un usuario normal
             user.save()
+            # Envía un correo electrónico de bienvenida, si es necesario.
             send_mail(
-                'Tu Contraseña Temporal - FitZone',
-                f'Hola {user.first_name}, aquí está tu contraseña temporal: {temp_password}\nPor favor cambia esta contraseña tras iniciar sesión por primera vez.',
-                'mramoscli@outlook.com',
+                'Bienvenido a FitZone',
+                f'Hola {user.first_name}, tu registro fue exitoso. Puedes iniciar sesión usando tu correo electrónico.',
+                'tucorreo@outlook.com',
                 [user.email],
                 fail_silently=False,
             )
@@ -30,6 +38,29 @@ def register(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'memberships/register.html', {'form': form})
+
+#* QUE ME CREABA UNA CONTRASEÑA TEMPORAL
+# def register(request):
+#     if request.method == 'POST':
+#         form = CustomUserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             temp_password = get_random_string(8)
+#             user.set_password(temp_password)
+#             user.save()
+#             send_mail(
+#                 'Tu Contraseña Temporal - FitZone',
+#                 f'Hola {user.first_name}, aquí está tu contraseña temporal: {temp_password}\nPor favor cambia esta contraseña tras iniciar sesión por primera vez.',
+#                 'mramoscli@outlook.com',
+#                 [user.email],
+#                 fail_silently=False,
+#             )
+#             return redirect('login')
+#     else:
+#         form = CustomUserCreationForm()
+#     return render(request, 'memberships/register.html', {'form': form})
+
+
 # def register(request):
 #     if request.method == 'POST':
 #         form = CustomUserCreationForm(request.POST)
@@ -58,42 +89,35 @@ def profile(request):
 # Asegúrate de configurar las URLs para estas vistas en tu archivo urls.py
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('login')
-    
+
+# clases
 @login_required
 def class_list(request):
     classes = Class.objects.all()
     return render(request, 'memberships/class_list.html', {'classes': classes})
 
-@login_required
-def class_create(request):
-    if request.method == 'POST':
-        form = ClassForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('class_list')
-    else:
-        form = ClassForm()
-    return render(request, 'memberships/class_form.html', {'form': form})
+@method_decorator(login_required, name='dispatch')
+@method_decorator(staff_member_required, name='dispatch')
+class ClassCreateView(CreateView):
+    model = Class
+    form_class = ClassForm
+    template_name = 'memberships/class_form.html'
+    success_url = reverse_lazy('class_list')
 
-@login_required
-def class_update(request, pk):
-    class_instance = Class.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = ClassForm(request.POST, instance=class_instance)
-        if form.is_valid():
-            form.save()
-            return redirect('class_list')
-    else:
-        form = ClassForm(instance=class_instance)
-    return render(request, 'memberships/class_form.html', {'form': form})
+@method_decorator(login_required, name='dispatch')
+@method_decorator(staff_member_required, name='dispatch')
+class ClassUpdateView(UpdateView):
+    model = Class
+    form_class = ClassForm
+    template_name = 'memberships/class_form.html'
+    success_url = reverse_lazy('class_list')
 
-@login_required
-def class_delete(request, pk):
-    class_instance = Class.objects.get(pk=pk)
-    if request.method == 'POST':
-        class_instance.delete()
-        return redirect('class_list')
-    return render(request, 'memberships/class_confirm_delete.html', {'class_instance': class_instance})
+@method_decorator(login_required, name='dispatch')
+@method_decorator(staff_member_required, name='dispatch')
+class ClassDeleteView(DeleteView):
+    model = Class
+    template_name = 'memberships/class_confirm_delete.html'
+    success_url = reverse_lazy('class_list')
 
 @login_required
 def enroll_in_class(request, pk):
@@ -102,6 +126,7 @@ def enroll_in_class(request, pk):
         class_instance.participants.add(request.user)
         return HttpResponseRedirect(reverse_lazy('class_list'))
     return render(request, 'memberships/class_enroll_confirm.html', {'class_instance': class_instance})
+# Progreso
 
 @login_required
 def progress_list(request):

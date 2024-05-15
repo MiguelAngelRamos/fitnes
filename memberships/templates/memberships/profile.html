@@ -1,17 +1,14 @@
-{% extends "base.html" %}
-
+{% extends "base_navbar.html" %}
 {% block content %}
-<div class="container mt-3">
-    <h1>Perfil del Usuario</h1>
-    <p><strong>Correo Electrónico:</strong> {{ user.email }}</p>
-    <p><strong>Detalles de Salud:</strong> {{ user.health_details }}</p>
-    <p><strong>Actividades Preferidas:</strong> {{ user.preferred_activities }}</p>
-
-    <form action="{% url 'logout' %}" method="post">
-      {% csrf_token %}
-      <button class="btn btn-danger" type="submit" class="dropdown-item">Cerrar Sesión</button>
-    </form>
-</div>
+<h1>Perfil de Usuario</h1>
+<p>Email: {{ user.email }}</p>
+<p>Nombre de Usuario: {{ user.username }}</p>
+<p>Detalles de Salud: {{ user.health_details }}</p>
+<p>Actividades Preferidas: {{ user.preferred_activities }}</p>
+<p>Dirección: {{ user.address }}</p>
+<p>Fecha de Inicio de la Membresía: {{ user.membership_start_date }}</p>
+<a class="btn btn-primary" href="{% url 'profile' %}">Editar Perfil</a>
 {% endblock %}
+
 
 <!-- memberships>templates>memberships>profile.html-->

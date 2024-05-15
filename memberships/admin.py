@@ -5,21 +5,17 @@ from .models import CustomUser, Class
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
-    # Utiliza 'email' en lugar de 'username' para ordenar los usuarios
     ordering = ('email',)
-    # Asegúrate de que el listado de campos en list_display no incluya 'username'
-    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_active')
-
-    # Configuración de los formularios de edición y creación de usuarios
+    list_display = ('email', 'username', 'first_name', 'last_name', 'is_staff', 'is_active')
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'health_details', 'preferred_activities')}),
+        (None, {'fields': ('email', 'username', 'password', 'health_details', 'preferred_activities', 'address', 'membership_start_date')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'health_details', 'preferred_activities', 'is_active', 'is_staff')}
+            'fields': ('email', 'username', 'password1', 'password2', 'health_details', 'preferred_activities', 'address', 'membership_start_date', 'is_active', 'is_staff')}
         ),
     )
 

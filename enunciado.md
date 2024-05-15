@@ -1,7 +1,3 @@
-
-### Versión Nivel de Dificultad:
-V2 Medio
-
 ### Nombre del proyecto:
 "FitZone" – Iteración 1
 
@@ -47,5 +43,3 @@ Desarrollar una solución tecnológica que integre todas las operaciones del gim
 - Realizar la migración inicial y verificar que se refleje en la base de datos.
 - Definir usuarios de tipo superuser y usuarios del sistema.
 - La página principal presentará información básica sobre "FitZone" y permitirá el acceso a las diferentes funcionalidades según el rol del usuario.
-
-Este ejercicio ofrece una oportunidad para que los estudiantes apliquen y profundicen su conocimiento en Django, especialmente en la manipulación de datos y el manejo de relaciones en bases de datos a través de un ORM.

@@ -43,3 +43,10 @@ Desarrollar una solución tecnológica que integre todas las operaciones del gim
 - Realizar la migración inicial y verificar que se refleje en la base de datos.
 - Definir usuarios de tipo superuser y usuarios del sistema.
 - La página principal presentará información básica sobre "FitZone" y permitirá el acceso a las diferentes funcionalidades según el rol del usuario.
+
+
+### INSTALE LAS DEPENDENCIAS CON EL SIGUIENTE COMANDO
+```sh
+pip install -r requirements.txt
+```
+Nota: previamente debes haber creado el entorno virtual y haberlo activado, antes de procesar a ejecutar este comando
